@@ -11,13 +11,14 @@ private:
 	std::string last;
 	DOB dob;
 	std::string healthcare_num;
-	std::string register_time;
+	time register_time;
+	std::string reg_time;
 	std::vector<std::string> symptoms;
-	//std::string cat_for_seriosness;
+
 	int cat_for_seriousness;
 public:
-	Patient(int cat) {
-		cat_for_seriousness = cat;
+	Patient() {
+		//cat_for_seriousness = cat;
 	}
 
 	void set_first(std::string f) {
@@ -40,13 +41,55 @@ public:
 		healthcare_num = n;
 	}
 
-	void set_register_time(std::string s) {
+	void set_register_time(time s) {
 		register_time = s;
 	}
 
+	void set_reg(std::string s) {
+		reg_time = s;
+	}
+
+	void set_seriousness(int s) {
+		cat_for_seriousness = s;
+	}
+
+	/*
+	(a) Patients in the same category are sorted by their arrival time: `rst-
+	come, rst-served.'
+	(b) Patients who are waiting will be promoted to the `next' level after
+	a certain length of time has elapsed, however, patients who are in
+	critical condition will always take priority over patients who were
+	admitted and assigned a less serious category:
+		i. patients in category two will be promoted to level one after one
+		hour
+		ii. patients who are in serious condition will be promoted one level
+		after two hours
+		iii. patients who are in non-serious condition will be promoted one
+		level after three hours
+		iv. `non-priority' patients will be promoted one level after four hours
+	(c) In some cases, a patient's category will change while they are waiting,
+	i.e., their condition will worsen or, in rare cases, improve. The nurses
+	can change a patient's priority by selecting the third menu item. The
+	program must ask the nurse for the patient's personal health number,
+	print out the current priority category, and then ask the nurse for the
+	new category number.
+	*/
 	friend bool operator> (const Patient &m1, const Patient &m2) {
 		if (m1.cat_for_seriousness > m2.cat_for_seriousness) {
 			return true;
+		} 
+		/*
+		if (m1.reg_time > m2.reg_time) {
+			return true;
+		}
+		*/
+		if (m1.register_time.hh > m2.register_time.hh) {
+			return true;
+		}
+		if (m1.register_time.hh == m2.register_time.hh) {
+			if (m1.register_time.mm > m2.register_time.mm) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -59,7 +102,7 @@ public:
 		std::cout << first << " " << middle << " " << last << std::endl;
 		std::cout << "HealthCare #: " << healthcare_num << std::endl;
 		std::cout << "Cathegory: " << cat_for_seriousness << std::endl;
-		std::cout << "Admission time: " << register_time << std::endl;
+		std::cout << "Admission time: " << register_time.hh << ":" << register_time.mm << std::endl;
 	}
 };
 
@@ -87,3 +130,4 @@ order of input:
 (j) Category number (this will be determined by the nurse at the desk,
 not the patient of course)
 */
+

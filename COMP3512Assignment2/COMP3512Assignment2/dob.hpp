@@ -5,3 +5,8 @@ struct DOB {
 	int month;
 	int day;
 };
+
+struct time {
+	int hh;
+	int mm;
+};

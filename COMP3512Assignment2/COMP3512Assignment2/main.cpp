@@ -36,7 +36,7 @@ int main() {
 	db2.year = 12;
 	p2.set_dob(db2);
 	p2.set_seriousness(8);
-	p2.set_healthcare_num("12345678");
+	p2.set_healthcare_num("12345679");
 	time t2;
 	t2.hh = 13;
 	t2.mm = 40;
@@ -44,6 +44,7 @@ int main() {
 
 	d.add_patient(p);
 	d.add_patient(p2);
+	//d.set_by_healthnum("12345678", 10);
 
 	run_menu(d);
 

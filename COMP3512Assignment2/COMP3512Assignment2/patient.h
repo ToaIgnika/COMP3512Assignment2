@@ -53,6 +53,28 @@ public:
 		cat_for_seriousness = s;
 	}
 
+	std::string get_healthcare_num() {
+		return healthcare_num;
+	}
+
+	friend void swap(Patient p1, Patient& p2) {
+		std::swap(p1.first, p2.first);
+		std::swap(p1.middle, p2.middle);
+		std::swap(p1.last, p2.last);
+		std::swap(p1.cat_for_seriousness, p2.cat_for_seriousness);
+		std::swap(p1.healthcare_num, p2.healthcare_num);
+		std::swap(p1.register_time, p2.register_time);
+		std::swap(p1.dob, p2.dob);
+		std::swap(p1.symptoms, p2.symptoms);
+		//std::swap(p1.first, p2.first);
+
+	};
+
+	Patient& operator=(Patient p) {
+		swap(*this, p);
+		return *this;
+	}
+
 	/*
 	(a) Patients in the same category are sorted by their arrival time: `rst-
 	come, rst-served.'
@@ -75,9 +97,12 @@ public:
 	new category number.
 	*/
 	friend bool operator> (const Patient &m1, const Patient &m2) {
+		
+
 		if (m1.cat_for_seriousness > m2.cat_for_seriousness) {
 			return true;
 		} 
+		std::cout << "xx1";
 		/*
 		if (m1.reg_time > m2.reg_time) {
 			return true;
@@ -86,11 +111,13 @@ public:
 		if (m1.register_time.hh > m2.register_time.hh) {
 			return true;
 		}
+		std::cout << "xx2";
 		if (m1.register_time.hh == m2.register_time.hh) {
 			if (m1.register_time.mm > m2.register_time.mm) {
 				return true;
 			}
 		}
+		std::cout << "xx3";
 		return false;
 	}
 

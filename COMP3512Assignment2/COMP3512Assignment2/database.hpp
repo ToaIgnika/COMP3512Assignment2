@@ -35,13 +35,7 @@ private:
 public:
 	Database() {
 		auto cmp = [](Patient left, Patient right) { 
-			if (left > right) {
-				return true;
-			}
-			if (right > left) {
-				return false;
-			}
-			return false;
+			return left > right;
 		};
 		count = 0;
 		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>queue(cmp);
@@ -77,13 +71,7 @@ public:
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left > right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;
@@ -111,13 +99,7 @@ public:
 
 	void update_queue() {
 		auto cmp = [](Patient left, Patient right) {
-			if (left > right) {
-				return true;
-			}
-			if (right > left) {
-				return false;
-			}
-			return false;
+			return left > right;
 		};
 		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 		Patient temp_pat;
@@ -134,19 +116,13 @@ public:
 		}
 	}
 
-	bool get_by_healthnum(std::string n) {
+	Patient get_by_healthnum(std::string n) {
 		try {
 			if (count == 0) {
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left > right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;
@@ -157,6 +133,7 @@ public:
 				queue.pop();
 				temp.push(temp_pat);
 				if (temp_pat.get_healthcare_num().compare(n) == 0) {
+					match = temp_pat;
 					found = true;
 				}
 			}
@@ -165,8 +142,12 @@ public:
 				temp.pop();
 				queue.push(temp_pat);
 			}
-			
-			return found;
+			if (found) {
+				return match;
+			}
+			else {
+				throw ex;
+			}
 		}
 		catch (exception& e) {
 			std::cout << e.what() << std::endl;
@@ -179,13 +160,7 @@ public:
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left > right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;
@@ -199,12 +174,13 @@ public:
 					temp_pat.set_seriousness(new_status);
 					std::cout << "checked";
 				}
-				//temp_pat.print_patient();
-				
+				temp_pat.print_patient();
+				std::cout << count;
+
 				temp.push(temp_pat);
 
 			}
-			//std::cout << count;
+			std::cout << count;
 			for (int i = 0; i < count; ++i) {
 				temp_pat = temp.top();
 				temp.pop();

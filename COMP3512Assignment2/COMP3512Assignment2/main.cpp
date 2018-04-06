@@ -45,11 +45,6 @@ int main() {
 	d.add_patient(p);
 	d.add_patient(p2);
 	//d.set_by_healthnum("12345678", 10);
-	//Patient p3;
-	//p3.print_patient();
-	//p3 = p;
-	//p3.print_patient();
-	//p.print_patient();
 
 	run_menu(d);
 

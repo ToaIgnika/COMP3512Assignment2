@@ -97,28 +97,50 @@ public:
 	new category number.
 	*/
 	friend bool operator> (const Patient &m1, const Patient &m2) {
-		
-
 		if (m1.cat_for_seriousness > m2.cat_for_seriousness) {
 			return true;
 		} 
-		std::cout << "xx1";
+		//std::cout << "xx1";
 		/*
 		if (m1.reg_time > m2.reg_time) {
 			return true;
 		}
 		*/
-		std::cout << m1.register_time.hh << "|" << m2.register_time.hh;
+		//std::cout << m1.register_time.hh << "|" << m2.register_time.hh;
 		if (m1.register_time.hh > m2.register_time.hh) {
 			return true;
 		}
-		std::cout << "xx2";
+		//std::cout << "xx2";
 		if (m1.register_time.hh == m2.register_time.hh) {
 			if (m1.register_time.mm > m2.register_time.mm) {
 				return true;
 			}
 		}
-		std::cout << "xx3";
+		//std::cout << "xx3";
+		return false;
+	}
+
+	friend bool operator< (const Patient &m1, const Patient &m2) {
+		if (m1.cat_for_seriousness < m2.cat_for_seriousness) {
+			return true;
+		}
+		//std::cout << "xx1";
+		/*
+		if (m1.reg_time > m2.reg_time) {
+		return true;
+		}
+		*/
+		//std::cout << m1.register_time.hh << "|" << m2.register_time.hh;
+		if (m1.register_time.hh < m2.register_time.hh) {
+			return true;
+		}
+		//std::cout << "xx2";
+		if (m1.register_time.hh == m2.register_time.hh) {
+			if (m1.register_time.mm < m2.register_time.mm) {
+				return true;
+			}
+		}
+		//std::cout << "xx3";
 		return false;
 	}
 

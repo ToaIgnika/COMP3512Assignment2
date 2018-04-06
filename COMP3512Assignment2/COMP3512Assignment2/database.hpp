@@ -25,7 +25,7 @@ class ElementNotFound : public std::exception
 typedef bool(*comp)(Patient, Patient);
 
 bool compare(Patient p1, Patient p2) {
-	return (p1 > p2);
+	return (p1 < p2);
 }
 
 class Database {
@@ -35,13 +35,7 @@ private:
 public:
 	Database() {
 		auto cmp = [](Patient left, Patient right) { 
-			if (left > right) {
-				return true;
-			}
-			if (right > left) {
-				return false;
-			}
-			return false;
+			return left < right;
 		};
 		count = 0;
 		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>queue(cmp);
@@ -77,13 +71,7 @@ public:
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left < right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;
@@ -111,13 +99,7 @@ public:
 
 	void update_queue() {
 		auto cmp = [](Patient left, Patient right) {
-			if (left > right) {
-				return true;
-			}
-			if (right > left) {
-				return false;
-			}
-			return false;
+			return left < right;
 		};
 		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 		Patient temp_pat;
@@ -140,13 +122,7 @@ public:
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left < right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;
@@ -179,13 +155,7 @@ public:
 				throw ex;
 			}
 			auto cmp = [](Patient left, Patient right) {
-				if (left > right) {
-					return true;
-				}
-				if (right > left) {
-					return false;
-				}
-				return false;
+				return left < right;
 			};
 			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
 			Patient temp_pat;

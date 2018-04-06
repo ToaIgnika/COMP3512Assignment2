@@ -121,7 +121,8 @@
     <ClInclude Include="controller.hpp" />
     <ClInclude Include="database.hpp" />
     <ClInclude Include="dob.hpp" />
-    <ClInclude Include="patient.h" />
+    <ClInclude Include="exceptions.hpp" />
+    <ClInclude Include="patient.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

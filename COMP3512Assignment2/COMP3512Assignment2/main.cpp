@@ -1,6 +1,7 @@
 #include <iostream>
 #include "controller.hpp"
 #include "database.hpp"
+#include "patient.hpp"
 #include <string>
 using namespace std;
 
@@ -8,6 +9,7 @@ using namespace std;
 int main() {
 
 	Database d;
+	Database d2;
 	Patient p = Patient();
 	Patient p2 = Patient();
 
@@ -44,6 +46,14 @@ int main() {
 
 	d.add_patient(p);
 	d.add_patient(p2);
+
+	Patient p3;
+	p3 = p;
+	//p3.print_patient();
+
+	//p3.set_seriousness(333);
+	//p3.print_patient();
+	//p.print_patient();
 	//d.set_by_healthnum("12345678", 10);
 
 	run_menu(d);

@@ -1,26 +1,13 @@
 #pragma once
-#include "patient.h"
+#include "patient.hpp"
 #include <queue>
 #include <exception>
 #include <stdexcept>
 #include <stdio.h>
+#include "exceptions.hpp"
 using namespace std;
 
-class EmptyQueueException : public std::exception
-{
-	virtual const char* what() const throw()
-	{
-		return "The queue is empty or the element was not found. Please, add users before performing actions";
-	}
-} ex ;
 
-class ElementNotFound : public std::exception
-{
-	virtual const char* what() const throw()
-	{
-		return "The requested patient was not found.";
-	}
-} nf;
 
 typedef bool(*comp)(Patient, Patient);
 
@@ -39,7 +26,7 @@ public:
 	Database() {
 		
 		count = 0;
-		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > queue(cmp);
+		std::priority_queue<Patient, std::vector<Patient>, comp> queue{ compare };
 	}
 
 	Patient get_patient() {
@@ -72,17 +59,15 @@ public:
 				throw ex;
 			}
 
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
+			std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
 			Patient temp_pat;
 			std::cout << "================================" << std::endl;
 			for (int i = 0; i < count; ++i) {
 				temp_pat = queue.top();
-
 				queue.pop();
 				temp.push(temp_pat);
 				temp_pat.print_patient();
 				std::cout << "================================" << std::endl;
-
 			}
 			for (int i = 0; i < count; ++i) {
 				temp_pat = temp.top();
@@ -98,7 +83,7 @@ public:
 
 	void update_queue() {
 	
-		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
+		std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
 		Patient temp_pat;
 		
 		for (int i = 0; i < count; ++i) {
@@ -116,10 +101,10 @@ public:
 	bool get_by_healthnum(std::string n) {
 		try {
 			if (count == 0) {
+				return false;
 				throw ex;
 			}
-		
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
+			std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
 			Patient temp_pat;
 			Patient match;
 			bool found = false;
@@ -149,26 +134,20 @@ public:
 			if (count == 0) {
 				throw ex;
 			}
-			
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
+			std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
+
 			Patient temp_pat;
 			Patient match;
-
+		
 			for (int i = 0; i < count; ++i) {
 				temp_pat = queue.top();
 				queue.pop();
-				
 				if (temp_pat.get_healthcare_num().compare(patient_num) == 0) {
 					temp_pat.set_seriousness(new_status);
-					std::cout << "checked";
 				}
-				temp_pat.print_patient();
-				std::cout << count;
-
 				temp.push(temp_pat);
-
 			}
-			std::cout << count;
+			
 			for (int i = 0; i < count; ++i) {
 				temp_pat = temp.top();
 				temp.pop();

@@ -23,13 +23,16 @@
     <ClInclude Include="controller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="patient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dob.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="database.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exceptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patient.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

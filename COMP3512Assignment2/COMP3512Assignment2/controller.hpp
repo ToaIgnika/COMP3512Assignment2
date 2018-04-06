@@ -11,6 +11,7 @@ void print_menu() {
 	std::cout << "5. Load patient list" << std::endl;
 	std::cout << "6. Print patient list" << std::endl;
 	std::cout << "7. Exit program" << std::endl;
+	std::cout << "*. Clear screen" << std::endl;
 }
 
 std::string prompt_name(std::string f) {
@@ -40,8 +41,17 @@ DOB prompt_dob(std::string f) {
 
 time prompt_time(std::string f) {
 	time t;
-	t.hh = 0;
-	t.mm = 0;
+	int conv1, conv2;
+	std::cout << f << std::endl;
+	std::string z;
+	std::cin >> z;	
+	conv1 = z[0];
+	conv2 = z[1];
+	t.hh = conv1 * 10 + conv2;
+
+	conv1 = z[3];
+	conv2 = z[4];
+	t.mm = conv1 * 10 + conv2;
 	return t;
 }
 
@@ -53,21 +63,26 @@ Patient compile_patient() {
 	p.set_dob(prompt_dob(""));
 	p.set_healthcare_num(prompt_name("HealthCare #: "));
 	p.set_register_time(prompt_time("Registration time: "));
+	p.set_symptoms(prompt_name("Symptoms: "));
 	p.set_seriousness(prompt_num("How dead you are: "));
 	std::cout << "Patient successfuly added." << std::endl;
+
 	return p;
 }
 
-void change_patient(Database db) {
+void change_patient(Database& db) {
 	std::string num;
 	std::cout << "Enter the patient to change: " << std::endl;
 	std::cin >> num;
 	if (db.get_by_healthnum(num)) {
-		std::cout << "User found." << std::endl;
+		std::cout << "User found. Current condition: " << std::endl;
 		std::cout << "Enter new item:  " << std::endl;
 		int new_num;
 		std::cin >> new_num;
 		db.set_by_healthnum(num, new_num);
+	}
+	else {
+		std::cout << "Patient was not found. Please, try again." << std::endl;
 	}
 
 }
@@ -80,27 +95,44 @@ void run_menu(Database db) {
 		std::cin >> u_input;
 		switch (u_input) {
 		case '1':
+			system("CLS");
 			db.add_patient(compile_patient());
+			print_menu();
 			break;
 		case '2':
+			system("CLS");
 			db.get_patient();
+			print_menu();
 			break;
 		case '3':
+			system("CLS");
 			change_patient(db);
+			print_menu();
 			break;
 		case '4':
+			system("CLS");
 			std::cout << "Saving to file..." << std::endl;
+			print_menu();
 			break;
 		case '5':
+			system("CLS");
 			std::cout << "Loading from file..." << std::endl;
+			print_menu();
 			break;
 		case '6':
+			system("CLS");
 			db.print_queue();
+			print_menu();
 			break;
 		case '7':
 			return;
 			break;
+		case '*':
+			system("CLS");
+			print_menu();
+			break;
 		}
+		
 	}
 }
 

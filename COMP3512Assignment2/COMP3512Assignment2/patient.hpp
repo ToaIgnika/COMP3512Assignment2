@@ -13,7 +13,7 @@ private:
 	std::string healthcare_num;
 	time register_time;
 	std::string reg_time;
-	std::vector<std::string> symptoms;
+	std::string symptoms;
 
 	int cat_for_seriousness;
 public:
@@ -42,7 +42,8 @@ public:
 	}
 
 	void set_register_time(time s) {
-		register_time = s;
+		register_time.hh = s.hh;
+		register_time.mm = s.mm;
 	}
 
 	void set_reg(std::string s) {
@@ -57,6 +58,10 @@ public:
 		return healthcare_num;
 	}
 
+	void set_symptoms(std::string s) {
+		symptoms = s;
+	}
+
 	friend void swap(Patient& p1, Patient& p2) {
 		std::swap(p1.first, p2.first);
 		std::swap(p1.middle, p2.middle);
@@ -66,13 +71,24 @@ public:
 		std::swap(p1.register_time, p2.register_time);
 		std::swap(p1.dob, p2.dob);
 		std::swap(p1.symptoms, p2.symptoms);
-		//std::swap(p1.first, p2.first);
-
 	};
 
 	Patient& operator=(Patient p) {
 		swap(*this, p);
 		return *this;
+	}
+
+	void copy(Patient p) {
+		first = p.first;
+		middle = p.middle;
+		last = p.last;
+		cat_for_seriousness = p.cat_for_seriousness;
+		healthcare_num = p.healthcare_num;
+		register_time = p.register_time;
+		dob.day = p.dob.day;
+		dob.month = p.dob.month;
+		dob.year = p.dob.year;
+		symptoms = p.symptoms;
 	}
 
 	/*
@@ -101,26 +117,17 @@ public:
 		if (m1.cat_for_seriousness > m2.cat_for_seriousness) {
 			return true;
 		} 
-		//std::cout << "xx1";
-		/*
-		if (m1.reg_time > m2.reg_time) {
-			return true;
-		}
-		*/
-		//std::cout << m1.register_time.hh << "|" << m2.register_time.hh;
+		
 		if (m1.cat_for_seriousness == m2.cat_for_seriousness) {
 			if (m1.register_time.hh > m2.register_time.hh) {
 				return true;
 			}
-			//std::cout << "xx2";
 			if (m1.register_time.hh == m2.register_time.hh) {
 				if (m1.register_time.mm > m2.register_time.mm) {
 					return true;
 				}
 			}
 		}
-	
-		//std::cout << "xx3";
 		return false;
 	}
 

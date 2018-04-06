@@ -53,6 +53,7 @@ Patient compile_patient() {
 	p.set_dob(prompt_dob(""));
 	p.set_healthcare_num(prompt_name("HealthCare #: "));
 	p.set_register_time(prompt_time("Registration time: "));
+	p.set_seriousness(prompt_num("How dead you are: "));
 	std::cout << "Patient successfuly added." << std::endl;
 	return p;
 }
@@ -61,13 +62,14 @@ void change_patient(Database db) {
 	std::string num;
 	std::cout << "Enter the patient to change: " << std::endl;
 	std::cin >> num;
-	Patient l = db.get_by_healthnum(num);
-	std::cout << "User found." << std::endl;
-	l.print_patient();
-	std::cout << "Enter new item:  " << std::endl;
-	int new_num;
-	std::cin >> new_num;
-	db.set_by_healthnum(num, new_num);
+	if (db.get_by_healthnum(num)) {
+		std::cout << "User found." << std::endl;
+		std::cout << "Enter new item:  " << std::endl;
+		int new_num;
+		std::cin >> new_num;
+		db.set_by_healthnum(num, new_num);
+	}
+
 }
 
 void run_menu(Database db) {

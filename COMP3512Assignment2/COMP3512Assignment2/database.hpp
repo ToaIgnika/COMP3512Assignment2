@@ -25,8 +25,11 @@ class ElementNotFound : public std::exception
 typedef bool(*comp)(Patient, Patient);
 
 bool compare(Patient p1, Patient p2) {
-	return (p1 > p2);
+	return p1 > p2;
 }
+auto cmp = [](Patient left, Patient right) {
+	return left > right;
+};
 
 class Database {
 private:
@@ -34,11 +37,9 @@ private:
 	int count;
 public:
 	Database() {
-		auto cmp = [](Patient left, Patient right) { 
-			return left > right;
-		};
+		
 		count = 0;
-		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>queue(cmp);
+		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > queue(cmp);
 	}
 
 	Patient get_patient() {
@@ -70,10 +71,8 @@ public:
 			if (count == 0) {
 				throw ex;
 			}
-			auto cmp = [](Patient left, Patient right) {
-				return left > right;
-			};
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
+
+			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
 			Patient temp_pat;
 			std::cout << "================================" << std::endl;
 			for (int i = 0; i < count; ++i) {
@@ -98,10 +97,8 @@ public:
 	}
 
 	void update_queue() {
-		auto cmp = [](Patient left, Patient right) {
-			return left > right;
-		};
-		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
+	
+		std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
 		Patient temp_pat;
 		
 		for (int i = 0; i < count; ++i) {
@@ -116,15 +113,13 @@ public:
 		}
 	}
 
-	Patient get_by_healthnum(std::string n) {
+	bool get_by_healthnum(std::string n) {
 		try {
 			if (count == 0) {
 				throw ex;
 			}
-			auto cmp = [](Patient left, Patient right) {
-				return left > right;
-			};
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
+		
+			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
 			Patient temp_pat;
 			Patient match;
 			bool found = false;
@@ -142,12 +137,7 @@ public:
 				temp.pop();
 				queue.push(temp_pat);
 			}
-			if (found) {
-				return match;
-			}
-			else {
-				throw ex;
-			}
+			return found;
 		}
 		catch (exception& e) {
 			std::cout << e.what() << std::endl;
@@ -159,10 +149,8 @@ public:
 			if (count == 0) {
 				throw ex;
 			}
-			auto cmp = [](Patient left, Patient right) {
-				return left > right;
-			};
-			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp)>temp(cmp);
+			
+			std::priority_queue<Patient, std::vector<Patient>, decltype(cmp) > temp(cmp);
 			Patient temp_pat;
 			Patient match;
 

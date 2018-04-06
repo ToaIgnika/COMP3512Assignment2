@@ -20,7 +20,7 @@ int main() {
 	db.month = 12;
 	db.year = 12;
 	p.set_dob(db);
-	p.set_seriousness(8);
+	p.set_seriousness(12);
 	p.set_healthcare_num("12345678");
 	time t;
 	t.hh = 1;

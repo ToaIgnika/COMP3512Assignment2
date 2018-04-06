@@ -78,6 +78,7 @@ public:
 			std::cout << "================================" << std::endl;
 			for (int i = 0; i < count; ++i) {
 				temp_pat = queue.top();
+
 				queue.pop();
 				temp.push(temp_pat);
 				temp_pat.print_patient();

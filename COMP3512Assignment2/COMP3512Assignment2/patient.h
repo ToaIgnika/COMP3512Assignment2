@@ -57,7 +57,7 @@ public:
 		return healthcare_num;
 	}
 
-	friend void swap(Patient p1, Patient& p2) {
+	friend void swap(Patient& p1, Patient& p2) {
 		std::swap(p1.first, p2.first);
 		std::swap(p1.middle, p2.middle);
 		std::swap(p1.last, p2.last);
@@ -108,6 +108,7 @@ public:
 			return true;
 		}
 		*/
+		std::cout << m1.register_time.hh << "|" << m2.register_time.hh;
 		if (m1.register_time.hh > m2.register_time.hh) {
 			return true;
 		}

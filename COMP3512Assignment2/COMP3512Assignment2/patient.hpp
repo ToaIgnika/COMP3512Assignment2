@@ -1,5 +1,6 @@
 #pragma once
 #include "dob.hpp"
+#include "date.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -9,7 +10,7 @@ private:
 	std::string first;
 	std::string middle;
 	std::string last;
-	DOB dob;
+	Date dob;
 	std::string healthcare_num;
 	time register_time;
 	std::string reg_time;
@@ -33,7 +34,7 @@ public:
 		last = l;
 	}
 
-	void set_dob(DOB n) {
+	void set_dob(Date n) {
 		dob = n;
 	}
 
@@ -85,9 +86,7 @@ public:
 		cat_for_seriousness = p.cat_for_seriousness;
 		healthcare_num = p.healthcare_num;
 		register_time = p.register_time;
-		dob.day = p.dob.day;
-		dob.month = p.dob.month;
-		dob.year = p.dob.year;
+		dob = p.dob;
 		symptoms = p.symptoms;
 	}
 

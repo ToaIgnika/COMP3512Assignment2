@@ -2,6 +2,7 @@
 #include <istream>
 #include <string>
 #include "database.hpp"
+#include "date.hpp"
 
 void print_menu() {
 	std::cout << "1. Add new patient" << std::endl;
@@ -28,14 +29,16 @@ int prompt_num(std::string f) {
 	int n;
 	std::cout << f;
 	std::cin >> n;
+	std::cin >> n;
 	return n;
 }
 
-DOB prompt_dob(std::string f) {
-	DOB d;
-	d.year = prompt_num("Year of birth: ");
-	d.month = prompt_num("Month of birth: ");
-	d.day = prompt_num("Day of birth: ");
+Date prompt_dob(std::string f) {
+	
+	int year = prompt_num("Year of birth: ");
+	int month = prompt_num("Month of birth: ");
+	int day = prompt_num("Day of birth: ");
+	Date d = Date(year, month, day);
 	return d;
 }
 

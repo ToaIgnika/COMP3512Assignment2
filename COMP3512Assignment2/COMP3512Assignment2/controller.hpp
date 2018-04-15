@@ -25,6 +25,15 @@ std::string prompt_name(std::string f) {
 	return content;
 }
 
+std::string prompt_sympt(std::string f) {
+	std::cin.clear();
+	std::cin.ignore();
+	std::cout << f;
+	std::string line;
+	std::getline(std::cin, line);
+	return line;
+}
+
 int prompt_num(std::string f) {
 	int n;
 	std::cout << f;
@@ -61,7 +70,8 @@ Patient compile_patient() {
 	p.set_dob(prompt_dob(""));
 	p.set_healthcare_num(prompt_name("HealthCare #: "));
 	p.set_register_time(prompt_time("Registration time: "));
-	p.set_symptoms(prompt_name("Symptoms: "));
+	p.set_symptoms(prompt_sympt("Symptoms: "));
+	print_status_menu();
 	p.set_seriousness(prompt_num("How dead you are: "));
 	std::cout << "Patient successfuly added." << std::endl;
 	return p;
@@ -85,6 +95,15 @@ void change_patient(Database& db) {
 }
 
 
+void print_status_menu() {
+	std::cout << "Please, select patients status:" << std::endl;
+	std::cout << "1. Critical and life-threatening, requires immediate care" << std::endl;
+	std::cout << "2. Critical, requires care `very soon'" << std::endl;
+	std::cout << "3. Serious, requires care `soon'" << std::endl;
+	std::cout << "4. Serious" << std::endl;
+	std::cout << "5. Non-serious" << std::endl;
+	std::cout << "6. Not a priority" << std::endl;
+}
 
 void run_menu(Database db) {
 	print_menu();
@@ -139,9 +158,10 @@ void run_menu(Database db) {
 			print_menu();
 			break;
 		}
-		
 	}
 }
+
+
 
 /*
 (a) Last name /

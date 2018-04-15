@@ -135,7 +135,7 @@ public:
 		int m1 = t.hh * 60 + t.mm;
 		int m2 = current_time.hh * 60 + current_time.mm;
 		int shift = (m2 - m1) / 60;
-		p.set_seriousness(p.get_cat_for_seriousness() + shift);
+		p.set_seriousness(p.get_cat_for_seriousness() - shift);
 	}
 
 	void set_by_healthnum(std::string patient_num, int new_status) {

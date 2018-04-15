@@ -16,7 +16,6 @@ int main() {
 	Patient p = Patient();
 	Patient p2 = Patient();
 
-
 	p.set_first("Alexander");
 	p.set_middle("Amadeus");
 	p.set_last("Abdulla");
@@ -43,13 +42,6 @@ int main() {
 
 	Patient p3;
 	p3 = p;
-
-
-	//p3.print_patient();
-	//p3.set_seriousness(333);
-	//p3.print_patient();
-	//p.print_patient();
-	//d.set_by_healthnum("12345678", 10);
 
 	run_menu(d);
 

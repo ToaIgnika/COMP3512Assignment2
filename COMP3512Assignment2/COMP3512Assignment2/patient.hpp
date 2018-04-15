@@ -20,6 +20,7 @@ private:
 public:
 	Patient() {
 		//cat_for_seriousness = cat;
+		
 	}
 
 	void set_first(std::string f) {
@@ -49,7 +50,7 @@ public:
 
 	void set_seriousness(int s) {
 		if (s < 1) {
-			cat_for_seriousness = 0;
+			cat_for_seriousness = 1;
 		}
 		else if (s > 6) {
 			cat_for_seriousness = 6;
@@ -168,7 +169,11 @@ public:
 			std::string l_n, f_n, m_n, sympt, hc_num;
 			time t;
 			int yy, mm, dd, hh_, mm_, stat;
-			if (is >> l_n >> f_n >> m_n >> yy >> mm >> dd >> hc_num >> hh_ >> mm_ >> sympt >> stat) {
+			is >> l_n >> f_n >> m_n >> yy >> mm >> dd >> hc_num >> hh_ >> mm_;
+			std::getline(is, sympt);
+			std::cin.clear();
+			std::getline(is, sympt);
+			is >> stat;
 				pat.set_last(l_n);
 				pat.set_first(f_n);
 				pat.set_middle(f_n);
@@ -177,7 +182,7 @@ public:
 				pat.set_register_time(time{ hh_, mm_ });
 				pat.set_symptoms(sympt);
 				pat.set_seriousness(stat);
-			}
+				std::cin.clear();
 		return is;
 	}
 
@@ -189,7 +194,7 @@ public:
 			<< " " << pat.dob.get_year() << " " << pat.dob.get_month() << " " << pat.dob.get_day()
 			<< " " << pat.healthcare_num
 			<< " " << pat.register_time.hh << " " << pat.register_time.mm
-			<< " " << pat.symptoms << " " << pat.cat_for_seriousness << "\n" ;
+			<< "\n" << pat.symptoms << "\n" << pat.cat_for_seriousness << " " ;
 		os << oss.str();
 		return os;
 	}

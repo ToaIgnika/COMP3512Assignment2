@@ -11,7 +11,7 @@ using namespace std;
 
 typedef bool(*comp)(Patient, Patient);
 
-bool compare(Patient p1, Patient p2) {
+static bool compare(Patient p1, Patient p2) {
 	return p1 > p2;
 }
 

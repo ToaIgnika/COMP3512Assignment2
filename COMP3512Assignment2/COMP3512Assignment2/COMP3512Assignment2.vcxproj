@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="controller.cpp" />
     <ClCompile Include="date.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

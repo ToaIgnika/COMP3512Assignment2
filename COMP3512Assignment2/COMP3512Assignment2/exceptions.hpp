@@ -2,7 +2,7 @@
 #include <exception>
 #include <stdexcept>
 
-class EmptyQueueException : public std::exception
+static class EmptyQueueException : public std::exception
 {
 	virtual const char* what() const throw()
 	{
@@ -10,7 +10,7 @@ class EmptyQueueException : public std::exception
 	}
 } ex;
 
-class ElementNotFound : public std::exception
+static class ElementNotFound : public std::exception
 {
 	virtual const char* what() const throw()
 	{

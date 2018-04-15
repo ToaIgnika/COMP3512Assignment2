@@ -7,7 +7,6 @@
 #include <istream>
 #include <fstream>
 #include "exceptions.hpp"
-using namespace std;
 
 typedef bool(*comp)(Patient, Patient);
 

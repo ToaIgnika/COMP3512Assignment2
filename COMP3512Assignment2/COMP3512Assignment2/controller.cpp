@@ -76,7 +76,7 @@ std::string Controller::prompt_name(std::string f, bool req = false) {
 	if (req) {
 		while (!is_valid_healthcare_input(line)) {
 			std::cout << "Invalid healthcare number. Please, try again." << std::endl;
-			cin >> line;
+			std::cin >> line;
 		}
 	}
 	content += line;
@@ -93,7 +93,7 @@ std::string Controller::prompt_sympt(std::string f) {
 }
 
 int Controller::prompt_num(std::string f) {
-	string n;
+	std::string n;
 	std::cout << f;
 	std::cin >> n;
 	int n_out = std::atoi(n.c_str());

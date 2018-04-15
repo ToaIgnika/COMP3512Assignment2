@@ -19,10 +19,10 @@ int main() {
 	p.set_last("Abdulla");
 	
 	p.set_dob(Date(1994, 8, 8));
-	p.set_seriousness(12);
+	p.set_seriousness(1);
 	p.set_healthcare_num("12345678");
 	time t;
-	t.hh = 1;
+	t.hh = 01;
 	t.mm = 40;
 	p.set_register_time(t);
 
@@ -30,7 +30,7 @@ int main() {
 	p2.set_middle("C");
 	p2.set_last("Chau");
 	p2.set_dob(Date(1997, 11, 22));
-	p2.set_seriousness(8);
+	p2.set_seriousness(3);
 	p2.set_healthcare_num("12345679");
 	time t2;
 	t2.hh = 13;

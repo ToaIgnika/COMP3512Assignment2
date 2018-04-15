@@ -33,7 +33,6 @@ int prompt_num(std::string f) {
 }
 
 Date prompt_dob(std::string f) {
-	
 	int year = prompt_num("Year of birth: ");
 	int month = prompt_num("Month of birth: ");
 	int day = prompt_num("Day of birth: ");

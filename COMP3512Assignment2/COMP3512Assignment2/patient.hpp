@@ -13,7 +13,6 @@ private:
 	Date dob;
 	std::string healthcare_num;
 	time register_time;
-	std::string reg_time;
 	std::string symptoms;
 
 	int cat_for_seriousness;
@@ -47,12 +46,16 @@ public:
 		register_time.mm = s.mm;
 	}
 
-	void set_reg(std::string s) {
-		reg_time = s;
-	}
-
 	void set_seriousness(int s) {
-		cat_for_seriousness = s;
+		if (s < 1) {
+			cat_for_seriousness = 0;
+		}
+		else if (s > 6) {
+			cat_for_seriousness = 6;
+		}
+		else {
+			cat_for_seriousness = s;
+		}
 	}
 
 	std::string get_healthcare_num() {
@@ -139,6 +142,10 @@ public:
 		std::cout << "HealthCare #: " << healthcare_num << std::endl;
 		std::cout << "Cathegory: " << cat_for_seriousness << std::endl;
 		std::cout << "Admission time: " << register_time.hh << ":" << register_time.mm << std::endl;
+	}
+
+	time get_reg_time() {
+		return register_time;
 	}
 };
 

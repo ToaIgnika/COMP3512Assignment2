@@ -14,12 +14,6 @@ Date::Date(int year, int month, int day)
 	if (!is_valid_date(year, month, day)) {
 		throw std::invalid_argument("Date::Date(int, int, int): invalid argument");
 	}
-
-	// Catch the constructor exception
-	// try {
-	//    Date d(...)
-	// } catch (const std::invalid_argument& e) {
-	//    cerr << e.what() << endl;
 }
 
 Date&

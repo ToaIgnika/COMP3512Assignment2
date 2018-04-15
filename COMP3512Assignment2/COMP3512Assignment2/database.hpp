@@ -79,6 +79,10 @@ public:
 		
 	}
 
+	int get_min_from_time(time t) {
+		return t.hh * 60 + t.mm;
+	}
+
 	void update_queue() {
 	
 		std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
@@ -178,6 +182,30 @@ public:
 		}
 	}
 
+	void set_max_time() {
+		std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
+		Patient temp_pat;
+		time temp_time = { 0,0 };
+		for (int i = 0; i < count; ++i) {
+			temp_pat = queue.top();
+			queue.pop();
+			temp.push(temp_pat);
+			if (get_min_from_time(temp_time) < get_min_from_time(temp_pat.get_reg_time())) {
+				temp_time = temp_pat.get_reg_time();
+			}
+		}
+		for (int i = 0; i < count; ++i) {
+			temp_pat = temp.top();
+			temp.pop();
+			queue.push(temp_pat);
+		}
+		current_time = temp_time;
+	}
+
+	int get_current_time() {
+		return get_min_from_time(current_time);
+	}
+
 	void load_queue() {
 		try {
 			for (int i = 0; i < count; ++i) {
@@ -198,6 +226,7 @@ public:
 				std::cout << "File is not found." << std::endl;
 			}
 			in.close();
+			set_max_time();
 		}
 		catch (exception& e) {
 			std::cout << e.what() << std::endl;

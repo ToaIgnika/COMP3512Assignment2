@@ -65,6 +65,10 @@ public:
 		if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
 			return false;
 		}
+		int min = hh * 60 + mm;
+		if (min < db.get_current_time()) {
+			return false;
+		}
 		return true;
 	}
 
@@ -94,17 +98,25 @@ public:
 	}
 
 	int prompt_num(std::string f) {
-		int n;
+		string n;
 		std::cout << f;
 		std::cin >> n;
-		return n;
+		int n_out = std::atoi(n.c_str());
+		return n_out;
 	}
 
 	Date prompt_dob(std::string f) {
+		Date d;
 		int year = prompt_num("Year of birth: ");
 		int month = prompt_num("Month of birth: ");
 		int day = prompt_num("Day of birth: ");
-		Date d = Date(year, month, day);
+		while (!d.is_valid_date(year, month, day)) {
+			std::cout << "Invalid date. Try again" << std::endl;
+			year = prompt_num("Year of birth: ");
+			month = prompt_num("Month of birth: ");
+			day = prompt_num("Day of birth: ");
+		}
+		d = Date(year, month, day);
 		return d;
 	}
 

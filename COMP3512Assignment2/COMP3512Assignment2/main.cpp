@@ -3,6 +3,9 @@
 #include "database.hpp"
 #include "patient.hpp"
 #include <string>
+#include <istream>
+#include <fstream>
+
 using namespace std;
 
 
@@ -21,10 +24,8 @@ int main() {
 	p.set_dob(Date(1994, 8, 8));
 	p.set_seriousness(1);
 	p.set_healthcare_num("12345678");
-	time t;
-	t.hh = 01;
-	t.mm = 40;
-	p.set_register_time(t);
+	p.set_register_time(time{ 1,20 });
+	p.set_symptoms("nonbe");
 
 	p2.set_first("Ryan");
 	p2.set_middle("C");
@@ -35,21 +36,23 @@ int main() {
 	time t2;
 	t2.hh = 13;
 	t2.mm = 40;
-	p2.set_register_time(t2);
-
+	p2.set_register_time(time{ 5,40 });
+	p2.set_symptoms("nonbe");
 	d.add_patient(p);
 	d.add_patient(p2);
 
 	Patient p3;
 	p3 = p;
-	//p3.print_patient();
 
+
+	//p3.print_patient();
 	//p3.set_seriousness(333);
 	//p3.print_patient();
 	//p.print_patient();
 	//d.set_by_healthnum("12345678", 10);
 
 	run_menu(d);
+
 
 	return 0;
 }

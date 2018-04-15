@@ -4,6 +4,8 @@
 #include <exception>
 #include <stdexcept>
 #include <stdio.h>
+#include <istream>
+#include <fstream>
 #include "exceptions.hpp"
 using namespace std;
 
@@ -14,9 +16,6 @@ typedef bool(*comp)(Patient, Patient);
 bool compare(Patient p1, Patient p2) {
 	return p1 > p2;
 }
-auto cmp = [](Patient left, Patient right) {
-	return left > right;
-};
 
 class Database {
 private:
@@ -136,7 +135,6 @@ public:
 		int m1 = t.hh * 60 + t.mm;
 		int m2 = current_time.hh * 60 + current_time.mm;
 		int shift = (m2 - m1) / 60;
-		//std:cout << shift << "|" << current_time.hh << "|" << current_time.mm <<std::endl;
 		p.set_seriousness(p.get_cat_for_seriousness() + shift);
 	}
 
@@ -169,4 +167,72 @@ public:
 			std::cout << e.what() << std::endl;
 		}
 	};
+
+	void print_current_time() {
+		if (current_time.hh < 10) {
+			cout << "Time: 0" << current_time.hh << ":" << current_time.mm << std::endl;
+		} else if (current_time.hh < 10 && current_time.mm) {
+			cout << "Time: 0" << current_time.hh << ":0" << current_time.mm << std::endl;
+		} else if (current_time.mm < 10) {
+			cout << "Time: " << current_time.hh << ":0" << current_time.mm << std::endl;
+		} else {
+			cout << "Time: " << current_time.hh << ":" << current_time.mm << std::endl;
+		}
+	}
+
+	void load_queue() {
+		try {
+			for (int i = 0; i < count; ++i) {
+				queue.top();
+			}
+			count = 0;
+			ifstream in("patients.txt");
+			if (in) {
+				in >> count;
+				for (int i = 0; i < count; ++i) {
+					Patient temp_pat;
+					in >> temp_pat;
+					queue.push(temp_pat);
+				}
+				in.close();
+			}
+			else {
+				std::cout << "File is not found." << std::endl;
+			}
+			in.close();
+		}
+		catch (exception& e) {
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	void save_queue() {
+		ofstream out("patients.txt");
+		try {
+			if (count == 0) {
+				throw ex;
+			}
+			ifstream in("patients.txt");
+
+			std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
+			Patient temp_pat;
+			out << count << "\n";
+			for (int i = 0; i < count; ++i) {
+				temp_pat = queue.top();
+				queue.pop();
+				temp.push(temp_pat);
+				out << temp_pat;
+			}
+			for (int i = 0; i < count; ++i) {
+				temp_pat = temp.top();
+				temp.pop();
+				queue.push(temp_pat);
+			}
+			in.close();
+		}
+		catch (exception& e) {
+			std::cout << e.what() << std::endl;
+		}
+		out.close();
+	}
 };

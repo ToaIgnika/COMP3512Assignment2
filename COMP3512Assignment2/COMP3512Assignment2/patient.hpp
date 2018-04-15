@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 class Patient {
 private:
@@ -140,14 +141,62 @@ public:
 	void print_patient() {
 		std::cout << first << " " << middle << " " << last << std::endl;
 		std::cout << "HealthCare #: " << healthcare_num << std::endl;
-		std::cout << "Cathegory: " << cat_for_seriousness << std::endl;
-		std::cout << "Admission time: " << register_time.hh << ":" << register_time.mm << std::endl;
+		std::cout << "Cathegory: " << cat_for_seriousness << std::endl; 
+		if (register_time.hh < 10) {
+			std::cout << "Admission time: 0" << register_time.hh << ":" << register_time.mm << std::endl;
+		}
+		else if (register_time.hh < 10 && register_time.mm) {
+			std::cout << "Admission time: 0" << register_time.hh << ":0" << register_time.mm << std::endl;
+		}
+		else if (register_time.mm < 10) {
+			std::cout << "Admission time: " << register_time.hh << ":0" << register_time.mm << std::endl;
+		}
+		else {
+			std::cout << "Admission time: " << register_time.hh << ":" << register_time.mm << std::endl;
+		}
 	}
 
 	time get_reg_time() {
 		return register_time;
 	}
+
+
+	friend std::istream&
+		operator>>(std::istream& is, Patient& pat)
+	{
+			int cat;
+			std::string l_n, f_n, m_n, sympt, hc_num;
+			time t;
+			int yy, mm, dd, hh_, mm_, stat;
+			if (is >> l_n >> f_n >> m_n >> yy >> mm >> dd >> hc_num >> hh_ >> mm_ >> sympt >> stat) {
+				pat.set_last(l_n);
+				pat.set_first(f_n);
+				pat.set_middle(f_n);
+				pat.set_dob(Date(yy, mm, dd));
+				pat.set_healthcare_num(hc_num);
+				pat.set_register_time(time{ hh_, mm_ });
+				pat.set_symptoms(sympt);
+				pat.set_seriousness(stat);
+			}
+		return is;
+	}
+
+	friend std::ostream&
+		operator<<(std::ostream& os, const Patient& pat)
+	{
+		std::ostringstream oss;
+		oss << pat.last << " " << pat.first << " " << pat.middle
+			<< " " << pat.dob.get_year() << " " << pat.dob.get_month() << " " << pat.dob.get_day()
+			<< " " << pat.healthcare_num
+			<< " " << pat.register_time.hh << " " << pat.register_time.mm
+			<< " " << pat.symptoms << " " << pat.cat_for_seriousness << "\n" ;
+		os << oss.str();
+		return os;
+	}
+
 };
+
+
 
 /*
 cat_for_seriosness conditions:

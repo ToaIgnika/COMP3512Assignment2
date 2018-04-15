@@ -64,7 +64,6 @@ Patient compile_patient() {
 	p.set_symptoms(prompt_name("Symptoms: "));
 	p.set_seriousness(prompt_num("How dead you are: "));
 	std::cout << "Patient successfuly added." << std::endl;
-
 	return p;
 }
 
@@ -85,41 +84,50 @@ void change_patient(Database& db) {
 
 }
 
+
+
 void run_menu(Database db) {
 	print_menu();
 	char u_input = 'p';
-
 	while (true) {
 		std::cin >> u_input;
 		switch (u_input) {
 		case '1':
 			system("CLS");
 			db.add_patient(compile_patient());
+			db.print_current_time();
 			print_menu();
 			break;
 		case '2':
 			system("CLS");
 			db.get_patient();
+			db.print_current_time();
 			print_menu();
 			break;
 		case '3':
 			system("CLS");
 			change_patient(db);
+			db.print_current_time();
 			print_menu();
 			break;
 		case '4':
 			system("CLS");
 			std::cout << "Saving to file..." << std::endl;
+			db.save_queue();
+			db.print_current_time();
 			print_menu();
 			break;
 		case '5':
 			system("CLS");
 			std::cout << "Loading from file..." << std::endl;
+			db.load_queue();
+			db.print_current_time();
 			print_menu();
 			break;
 		case '6':
 			system("CLS");
 			db.print_queue();
+			db.print_current_time();
 			print_menu();
 			break;
 		case '7':
@@ -127,6 +135,7 @@ void run_menu(Database db) {
 			break;
 		case '*':
 			system("CLS");
+			db.print_current_time();
 			print_menu();
 			break;
 		}

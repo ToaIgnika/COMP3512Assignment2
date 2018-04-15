@@ -9,8 +9,6 @@
 #include "exceptions.hpp"
 using namespace std;
 
-
-
 typedef bool(*comp)(Patient, Patient);
 
 bool compare(Patient p1, Patient p2) {

@@ -10,6 +10,7 @@
 class Controller {
 private:
 	Database db;
+
 public:
 	Controller() {
 	}
@@ -46,6 +47,24 @@ public:
 				}
 			}
 		}
+		if (db.get_by_healthnum(f)) {
+			std::cout << "User already exist. ";
+			return false;
+		}
+		return true;
+	}
+
+	bool is_valid_time(std::string f) {
+		if (f.length() != 5) {
+			return false;
+		}
+		std::string hhs = f.substr(0, 2);
+		std::string mms = f.substr(3, 2);
+		int hh = std::atoi(hhs.c_str());
+		int mm = std::atoi(mms.c_str());
+		if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
+			return false;
+		}
 		return true;
 	}
 
@@ -57,15 +76,13 @@ public:
 		std::cin >> line;
 		if (req) {
 			while (!is_valid_healthcare_input(line)) {
-				std::cout << "Invalid HealthCard Number. Please, try again." << std::endl;
+				std::cout << "Invalid healthcare number. Please, try again." << std::endl;
 				cin >> line;
 			}
 		}
 		content += line;
 		return content;
 	}
-
-
 
 	std::string prompt_sympt(std::string f) {
 		std::cin.clear();
@@ -97,6 +114,10 @@ public:
 		std::cout << f << std::endl;
 		std::string z;
 		std::cin >> z;
+		while (!is_valid_time(z)) {
+			std::cout << "Time is invalid. Please, use 24-hour format. hh:mm" << std::endl;
+			std::cin >> z;
+		}
 		std::string hh = z.substr(0, 2);
 		std::string mm = z.substr(3, 2);
 		t.hh = std::atoi(hh.c_str());
@@ -133,7 +154,6 @@ public:
 		else {
 			std::cout << "Patient was not found. Please, try again." << std::endl;
 		}
-
 	}
 
 	void run_menu() {
@@ -192,21 +212,3 @@ public:
 		}
 	}
 };
-
-
-
-
-
-/*
-(a) Last name / req
-(b) First name / req
-(c) Middle name / optional
-(d) Year of birth / req
-(e) Month of birth / req
-(f) Day of birth / req
-(g) Personal healthcare number / req, 8-digit number
-(h) Time admitted in format 24:00 / req, xx:xx format
-(i) Main symptom(s) (one line) / optional
-(j) Category number / int between 1 and 6. 
-*/
-

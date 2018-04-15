@@ -29,7 +29,6 @@ int prompt_num(std::string f) {
 	int n;
 	std::cout << f;
 	std::cin >> n;
-	std::cin >> n;
 	return n;
 }
 
@@ -48,13 +47,10 @@ time prompt_time(std::string f) {
 	std::cout << f << std::endl;
 	std::string z;
 	std::cin >> z;	
-	conv1 = z[0];
-	conv2 = z[1];
-	t.hh = conv1 * 10 + conv2;
-
-	conv1 = z[3];
-	conv2 = z[4];
-	t.mm = conv1 * 10 + conv2;
+	std::string hh = z.substr(0, 2);
+	std::string mm = z.substr(3, 2);
+	t.hh = std::atoi(hh.c_str());
+	t.mm = std::atoi(mm.c_str());
 	return t;
 }
 

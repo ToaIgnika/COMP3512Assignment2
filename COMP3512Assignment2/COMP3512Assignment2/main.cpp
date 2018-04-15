@@ -18,7 +18,7 @@ int main() {
 	p.set_middle("Amadeus");
 	p.set_last("Abdulla");
 	
-	p.set_dob(Date(1994, 20, 13));
+	p.set_dob(Date(1994, 8, 8));
 	p.set_seriousness(12);
 	p.set_healthcare_num("12345678");
 	time t;
@@ -29,7 +29,7 @@ int main() {
 	p2.set_first("Ryan");
 	p2.set_middle("C");
 	p2.set_last("Chau");
-	p2.set_dob(Date(1997, 29, 1));
+	p2.set_dob(Date(1997, 11, 22));
 	p2.set_seriousness(8);
 	p2.set_healthcare_num("12345679");
 	time t2;

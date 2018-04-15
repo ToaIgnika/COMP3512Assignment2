@@ -15,7 +15,7 @@ int main() {
 	Database d2;
 	Patient p = Patient();
 	Patient p2 = Patient();
-
+	Controller cont;
 	p.set_first("Alexander");
 	p.set_middle("Amadeus");
 	p.set_last("Abdulla");
@@ -43,7 +43,7 @@ int main() {
 	Patient p3;
 	p3 = p;
 
-	run_menu(d);
+	cont.run_menu();
 
 
 	return 0;

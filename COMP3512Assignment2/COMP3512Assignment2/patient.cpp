@@ -9,10 +9,22 @@
 
 Patient::Patient() {}
 
+/*
+Desc: Sets the first string
+Pre: A patient is required
+Post: The first string is set to f
+Return: Nothing
+*/
 void Patient::set_first(std::string f) {
 	first = f;
 }
 
+/*
+Desc: 
+Pre: 
+Post: 
+Return:  
+*/
 void Patient::set_middle(std::string m) {
 	middle = m;
 }

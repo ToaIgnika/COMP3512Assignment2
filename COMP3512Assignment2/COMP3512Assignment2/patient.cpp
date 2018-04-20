@@ -7,6 +7,12 @@
 #include <iostream>
 #include <sstream>
 
+/*
+Desc: The default constructor
+Pre: None
+Post: A default  patient object is created
+Return: Nothing
+*/
 Patient::Patient() {}
 
 /*
@@ -20,32 +26,62 @@ void Patient::set_first(std::string f) {
 }
 
 /*
-Desc: 
-Pre: 
-Post: 
-Return:  
+Desc: Sets the middle string
+Pre: A patient is required
+Post: The middle string is set to m
+Return:   Nothing
 */
 void Patient::set_middle(std::string m) {
 	middle = m;
 }
 
+/*
+Desc: Sets the last string
+Pre: A patient is required
+Post: The last string is set to l
+Return: Nothing
+*/
 void Patient::set_last(std::string l) {
 	last = l;
 }
 
+/*
+Desc: Sets a date of birth
+Pre: A patient is required
+Post: Date of birth is set to n
+Return: Nothing
+*/
 void Patient::set_dob(Date n) {
 	dob = n;
 }
 
+/*
+Desc:Sets the healthcare number
+Pre: A patient is required
+Post: Healthcare number is set to n
+Return: Nothing
+*/
 void Patient::set_healthcare_num(std::string n) {
 	healthcare_num = n;
 }
 
+/*
+Desc: Sets the register time
+Pre: A patient is required
+Post: The register time's h and m are set to the s values
+Return:  Nothing
+*/
 void Patient::set_register_time(time s) {
 	register_time.hh = s.hh;
 	register_time.mm = s.mm;
 }
 
+/*
+Desc: Sets the seriousness
+Pre: A patient is required
+Post: The seriousness is set
+Return: Nothing
+*/
 void Patient::set_seriousness(int s) {
 	if (s < 1) {
 		cat_for_seriousness = 1;
@@ -58,6 +94,12 @@ void Patient::set_seriousness(int s) {
 	}
 }
 
+/*
+Desc: Gets the healthcare number
+Pre: A patient is required
+Post: The healthcare number is returned
+Return: Healthcare number
+*/
 std::string Patient::get_healthcare_num() {
 	return healthcare_num;
 }
@@ -66,6 +108,13 @@ void Patient::set_symptoms(std::string s) {
 	symptoms = s;
 }
 
+
+/*
+Desc: Swaps patient 1 and patient 2
+Pre: Two patients
+Post: The patients are swapped
+Return: Nothing
+*/
 void swap(Patient& p1, Patient& p2) {
 	std::swap(p1.first, p2.first);
 	std::swap(p1.middle, p2.middle);
@@ -77,11 +126,24 @@ void swap(Patient& p1, Patient& p2) {
 	std::swap(p1.symptoms, p2.symptoms);
 };
 
+
+/*
+Desc: Overloads the = operator to swap patient objets
+Pre: A patient object on rhs and lhs
+Post: Returns patient object reference
+Return: A patient object reference
+*/
 Patient& Patient::operator=(Patient p) {
 	swap(*this, p);
 	return *this;
 }
 
+/*
+Desc: Copy patient p to the current patient
+Pre: A patient p and a current patient
+Post: Copies the patient
+Return: Nothing
+*/
 void Patient::copy(Patient p) {
 	first = p.first;
 	middle = p.middle;
@@ -133,10 +195,22 @@ bool operator > (const Patient &m1, const Patient &m2) {
 	return false;
 }
 
+/*
+Desc: Gets a current category for seriousness
+Pre: A patient
+Post: Returns the current category for seriousness
+Return: Category for seriousness
+*/
 int Patient::get_cat_for_seriousness() {
 	return cat_for_seriousness;
 }
 
+/*
+Desc: Prints out details about the current patient
+Pre: A patient
+Post: Prints out all details
+Return: Nothing
+*/
 void Patient::print_patient() {
 	std::cout << first << " " << middle << " " << last << std::endl;
 	std::cout << "HealthCare #: " << healthcare_num << std::endl;
@@ -155,11 +229,22 @@ void Patient::print_patient() {
 	}
 }
 
+/*
+Desc: Get register time
+Pre: A patient
+Post: Returns a register time
+Return: Register time
+*/
 time Patient::get_reg_time() {
 	return register_time;
 }
 
-
+/*
+Desc: Overloads the >> operator to insert a patient in a nice way
+Pre: A patient and an is
+Post: Inserts a new patient from input
+Return: The is
+*/
 std::istream&
 operator>>(std::istream& is, Patient& pat)
 {
@@ -184,6 +269,12 @@ operator>>(std::istream& is, Patient& pat)
 	return is;
 }
 
+/*
+Desc: Overloads the << operator to print things out nicely
+Pre: A patient and an ostream
+Post: Returns an os with the nicely formated printed stuff
+Return: os 
+*/
 std::ostream&
 operator<<(std::ostream& os, const Patient& pat)
 {

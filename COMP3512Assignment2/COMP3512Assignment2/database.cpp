@@ -9,12 +9,24 @@
 #include "database.hpp"
 using namespace std;
 
+/*
+Desc: Constructs a new database object
+Pre: Nothing
+Post: A new database object is born
+Return:  Nothing
+*/
 Database::Database() {
 	current_time = time{ 0,0 };
 	count = 0;
 	std::priority_queue<Patient, std::vector<Patient>, comp> queue{ compare };
 }
 
+/*
+Desc: Gets a patient from the database object
+Pre: A database object
+Post: Returns a patient 
+Return: A patient
+*/
 Patient Database::get_patient() {
 	try {
 		if (count == 0) {
@@ -32,6 +44,12 @@ Patient Database::get_patient() {
 	}
 }
 
+/*
+Desc:Adds a patient tot he database
+Pre: A database and a patient
+Post: Adds the patient
+Return: Nothing
+*/
 void Database::add_patient(Patient p) {
 	count++;
 	current_time = p.get_reg_time();
@@ -39,6 +57,12 @@ void Database::add_patient(Patient p) {
 	update_queue();
 }
 
+/*
+Desc: Prints the database queue
+Pre: A database 
+Post: A printed qeueue
+Return:vNothing
+*/
 void Database::print_queue() {
 	try {
 		if (count == 0) {
@@ -67,10 +91,22 @@ void Database::print_queue() {
 
 }
 
+/*
+Desc: Gets the minimum from an entered time
+Pre: A time and a databse
+Post: A time is found and returned
+Return: The min time 
+*/
 int Database::get_min_from_time(time t) {
 	return t.hh * 60 + t.mm;
 }
 
+/*
+Desc: Updates the queue 
+Pre: A database and queue
+Post: The queue is updated
+Return: Nothing
+*/
 void Database::update_queue() {
 
 	std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
@@ -89,6 +125,12 @@ void Database::update_queue() {
 	}
 }
 
+/*
+Desc: Checks if this healthnum string has a corresponding patient in the queue
+Pre: A healthnum and a database
+Post: Returns a boolean to represent if its found or not
+Return: A boolean found 
+*/
 bool Database::get_by_healthnum(std::string n) {
 	try {
 		if (count == 0) {
@@ -120,6 +162,12 @@ bool Database::get_by_healthnum(std::string n) {
 	}
 }
 
+/*
+Desc: Updates the patients status
+Pre: A patient and a database
+Post: The status is updatted
+Return: Nothing
+*/
 void Database::update_patient_status(Patient& p) {
 	time t = p.get_reg_time();
 	int m1 = t.hh * 60 + t.mm;
@@ -128,6 +176,12 @@ void Database::update_patient_status(Patient& p) {
 	p.set_seriousness(p.get_cat_for_seriousness() - shift);
 }
 
+/*
+Desc: Sets the status via the patients health number
+Pre: A health number and a databse and a status
+Post: Sets the status
+Return: Nothing
+*/
 void Database::set_by_healthnum(std::string patient_num, int new_status) {
 	try {
 		if (count == 0) {
@@ -158,6 +212,12 @@ void Database::set_by_healthnum(std::string patient_num, int new_status) {
 	}
 };
 
+/*
+Desc: Prints the currente time 
+Pre: A database
+Post: The time printed
+Return: Nothing
+*/
 void Database::print_current_time() {
 	if (current_time.hh < 10) {
 		cout << "Time: 0" << current_time.hh << ":" << current_time.mm << std::endl;
@@ -173,6 +233,12 @@ void Database::print_current_time() {
 	}
 }
 
+/*
+Desc: Sets the maximum time for the databse
+Pre: A database
+Post: The max time is set
+Return: Nothing
+*/
 void Database::set_max_time() {
 	std::priority_queue<Patient, std::vector<Patient>, comp> temp{ compare };
 	Patient temp_pat;
@@ -193,10 +259,22 @@ void Database::set_max_time() {
 	current_time = temp_time;
 }
 
+/*
+Desc: Gets the current time
+Pre: A database object
+Post: The current time is returned
+Return: The current time
+*/
 int Database::get_current_time() {
 	return get_min_from_time(current_time);
 }
 
+/*
+Desc: Loads the queue
+Pre: A queue and database
+Post: The queue is loaded
+Return: Nothing
+*/
 void Database::load_queue() {
 	try {
 		for (int i = 0; i < count; ++i) {
@@ -224,6 +302,12 @@ void Database::load_queue() {
 	}
 }
 
+/*
+Desc: Saves the queue
+Pre: The queue and the database
+Post: Saves the queue
+Return: Nothing
+*/
 void Database::save_queue() {
 	ofstream out("patients.txt");
 	try {

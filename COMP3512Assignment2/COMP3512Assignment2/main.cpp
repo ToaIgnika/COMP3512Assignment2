@@ -8,9 +8,20 @@
 
 using namespace std;
 
+/*
+	Test cases covered, tested and implemented:
+	1. All invalid inputs are handled properly. That is, the program will re-prompt user in case of invalid input.
+	2. Out of Bondaries queue issues are handled properly
+	3. File save/load feature tested and works without issues even in scenario of bad inputs
+	4. Priority queue keeps track of time and resorts the queue every time operation happens
+	5. Tests were optimized to work in the range of 00:00 - 23:59
+	6. Each method was tested manually in the main when creating a patient
+	7. Duplicates of the healthcare num are not allowed*
+*/
+
 
 int main() {
-
+	/*
 	Database d;
 	Database d2;
 	Patient p = Patient();
@@ -42,9 +53,9 @@ int main() {
 
 	Patient p3;
 	p3 = p;
+	*/
 
+	Controller cont;
 	cont.run_menu();
-
-
 	return 0;
 }
